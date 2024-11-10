@@ -11,7 +11,8 @@ CREATE TABLE "products" (
   "name" text,
   "category" text,
   "price" integer,
-  "description" text
+  "description" text,
+  "photoUrl" text
 );
 
 CREATE TABLE "users" (
