@@ -45,14 +45,15 @@ export function Products() {
   }
   return (
     <div className="container">
-      <img src="/images/pokemart.jpg" />
-      <hr className="" />
-      <div className="productsMap">
-        {products?.map((product) => (
-          <div key={product.productId} className="">
-            <ItemCard products={product} />
-          </div>
-        ))}
+      <img className="pokemartLogo" src="/images/pokemart.png" />
+      <div className="img-back">
+        <div className="productsMap">
+          {products?.map((product) => (
+            <div key={product.productId} className="imageCard">
+              <ItemCard products={product} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -66,7 +67,7 @@ function ItemCard({ products }: CardProps) {
   return (
     <div className="itemCard">
       <img className="product-image" src={products.photoUrl}></img>
-      <h5 className="">{products.name}</h5>
+      <h5 className="productName">{products.name}</h5>
     </div>
   );
 }
