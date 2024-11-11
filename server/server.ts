@@ -27,21 +27,22 @@ app.get('/api/products', async (req, res, next) => {
   }
 });
 
-// app.get('/api/products/:productId', async (req, res, next) => {
+// gonna work on categories later
+// app.get('/api/products/categories/:category', async (req, res, next) => {
 //   try {
-//     const { productId } = req.params;
-//     if (!Number.isInteger(+productId)) {
-//       throw new ClientError(400, `Non-integer productId: ${productId}`);
+//     const { category } = req.params;
+//     if (!category || typeof category !== 'string') {
+//       throw new ClientError(400, `not a valid category: ${category}`);
 //     }
-//     const { category } = req.body;
 //     const sql = `
 //     Select *
 //     from "products"
-//     Where "productId" = $1`;
-//     const results = await db.query(sql, [productId]);
-//     const product = results.rows[0];
-//     if (!product) throw new ClientError(404, `product ${productId} not found`);
-//     res.json(product);
+//     Where "category" = $1`;
+//     const results = await db.query(sql, [category]);
+//     const categoryResult = results.rows[0];
+//     if (!categoryResult)
+//       throw new ClientError(404, `categoryResult ${category} not found`);
+//     res.json(categoryResult);
 //   } catch (err) {
 //     next(err);
 //   }
