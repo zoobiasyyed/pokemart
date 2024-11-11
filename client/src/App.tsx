@@ -7,11 +7,12 @@ import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <Products />
-      <ProductDetails />
-      <NotFound />
-    </>
+    <Routes>
+      <Route path="/" element={<Header />}>
+        <Route index element={<Products />} />
+        <Route path="products/:productId" element={<ProductDetails />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }

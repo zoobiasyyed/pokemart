@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export type Product = {
   productId: number;
@@ -49,9 +50,12 @@ export function Products() {
       <div className="img-back">
         <div className="productsMap">
           {products?.map((product) => (
-            <div key={product.productId} className="imageCard">
+            <Link
+              to={`/products/${product.productId}`}
+              key={product.productId}
+              className="imageCard">
               <ItemCard products={product} />
-            </div>
+            </Link>
           ))}
         </div>
       </div>

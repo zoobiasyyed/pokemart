@@ -55,7 +55,9 @@ body {
 }
 
 .pokemartLogo {
-  width: 400px;
+  padding-top: 10px;
+  padding-right: 5px;
+  width: 300px;
 }
 
 .img-back {
@@ -75,12 +77,16 @@ body {
   height: 135px;
 }
 
+.itemCard:hover {
+  transform: rotate(5deg);
+}
+
 .imageCard {
   width: calc(100% / 3);
 }
 
 .product-image {
-  background-color: white;
+  background-color: #f4f0d6;
   padding: 10px;
   margin-top: 10px;
   width: 60px;
@@ -89,4 +95,29 @@ body {
 .productName {
   font-family: 'Press Start 2P', sans-serif;
   font-size: 8px;
+  color: white;
+}
+
+@media screen and (width >= 600px) {
+  .imageCard {
+    width: calc(100% / 4);
+  }
+}
+
+@media screen and (width >= 750px) {
+  .imageCard {
+    width: calc(100% / 5);
+  }
+}
+
+@media screen and (width >= 800px) {
+  .imageCard {
+    width: calc(100% / 6);
+  }
+}
+
+@media screen and (width >= 900px) {
+  .imageCard {
+    width: calc(100% / 7);
+  }
 }
