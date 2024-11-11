@@ -41,7 +41,7 @@ values ('Antidote', 'Healing Items', 10000, 'Removes Poison effects from a Poké
       ('Water Stone', 'Evolution Items', 1000000, 'Evolves Eevee, Poliwhirl , Shellder and Staryu' , '/images/WaterStone.webp' ),
       ('Calcium', 'Competitive Items', 500000, 'Raises the base Sp. Attack stat of a single Pokémon' , '/images/Calcium.webp'),
       ('Carbos', 'Competitive Items', 500000, 'Raises the base Speed stat of a single Pokémon', '/images/Carbos.webp' ),
-      ('HP Up', 'Competitive Items', 500000, 'Raises the base HP stat of a single Pokémon' , '/images/HP_Up.webp'),
+      ('HP Up', 'Competitive Items', 500000, 'Raises the base HP stat of a single Pokémon' , '/images/HPUp.webp'),
       ('Iron', 'Competitive Items', 500000, 'Raises the base Defense stat of a single Pokémon', '/images/Iron.webp' ),
       ('Protein', 'Competitive Items', 500000, 'Raises the base Attack stat of a single Pokémon' , '/images/Protein.webp' ),
       ('Zinc', 'Competitive Items', 500000, 'Raises the base Sp. Defense of a single Pokémon' , '/images/Zinc.webp')
