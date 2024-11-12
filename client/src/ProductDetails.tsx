@@ -46,29 +46,23 @@ export function ProductDetails() {
   const { name, price, description, photoUrl } = products;
 
   return (
-    <div className="container">
-      <div className="flex flex-col">
-        <div className="flex-auto p-6">
-          <Link to="/" className="p-3 text-gray-600 cursor-pointer">
-            &lt; Back to PokeMart
-          </Link>
-          <div className="flex flex-wrap mb-4">
-            <div className="w-full sm:w-1/2 md:w-2/5 pt-2 px-4">
-              <img
-                src={photoUrl}
-                alt={name}
-                className="w-full h-80 object-contain"
-              />
-            </div>
-            <h2 className="pd-h2">{name}</h2>
-          </div>
-          <div className="px-4">
-            <p className="pd-text">{description}</p>
-            <p className="pd-text">{'$' + (price / 100).toFixed(2)}</p>
-          </div>
+    <>
+      <div className="productDetails">
+        <Link to="/">Back</Link>
+        <div>
+          <img src={photoUrl} />
         </div>
-        <button> Add To Cart</button>
+        <div>
+          <p>{'$' + (price / 100).toFixed(2)}</p>
+          <p>{name}</p>
+        </div>
+        <div>
+          <p>{description}</p>
+        </div>
+        <div>
+          <button>Add to Cart</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
