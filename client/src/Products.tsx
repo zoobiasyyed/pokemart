@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { readToken } from './data';
 
 export type Product = {
   productId: number;
@@ -18,7 +19,11 @@ export function Products() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('api/products');
+        const response = await fetch('api/products', {
+          headers: {
+            Authorization: `Bearer ${readToken()}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

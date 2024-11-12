@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { type Product } from './Products';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
+import { readToken } from './data';
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -14,7 +15,11 @@ export function ProductDetails() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch(`/api/products/${productId}`);
+        const response = await fetch(`/api/products/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${readToken()}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
