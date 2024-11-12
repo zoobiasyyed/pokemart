@@ -3,8 +3,10 @@ import { Outlet } from 'react-router-dom';
 
 export function Header() {
   return (
-    <div className="header">
-      <h3>header</h3>
+    <div>
+      <div className="header">
+        <h3>header</h3>
+      </div>
       {<Outlet />}
     </div>
   );
