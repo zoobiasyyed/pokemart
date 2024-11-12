@@ -22,6 +22,7 @@ body {
 .container {
   width: 100%;
   background-color: white;
+  height: 100vh;
 }
 
 .pokemartLogo {
@@ -69,7 +70,12 @@ body {
 }
 
 .productDetails {
-  background-color: #f4f0d6;
+  background-color: #fff;
+}
+
+.backDetails {
+  padding: 10px;
+  display: flex;
 }
 
 .details-text {
@@ -77,6 +83,15 @@ body {
   color: black;
   margin: 0 auto;
   height: 100%;
+}
+
+.shoppingBag {
+  padding: 10px;
+}
+
+.headerBag {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (width >= 600px) {

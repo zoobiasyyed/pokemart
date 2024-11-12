@@ -46,23 +46,25 @@ export function ProductDetails() {
   const { name, price, description, photoUrl } = products;
 
   return (
-    <>
+    <div className="container">
       <div className="productDetails">
-        <Link to="/">Back</Link>
+        <Link className="backDetails" to="/">
+          &lt; Back
+        </Link>
         <div>
           <img src={photoUrl} />
         </div>
         <div>
-          <p>{'$' + (price / 100).toFixed(2)}</p>
-          <p>{name}</p>
+          <p className="details-text">{'$' + (price / 100).toFixed(2)}</p>
+          <p className="details-text">{name}</p>
         </div>
         <div>
-          <p>{description}</p>
+          <p className="details-text">{description}</p>
         </div>
         <div>
           <button>Add to Cart</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
