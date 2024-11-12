@@ -1,12 +1,20 @@
 import { FaShoppingBag } from 'react-icons/fa';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from './CartContext';
 
 export function Header() {
+  const { cart } = useContext(CartContext);
   return (
     <div>
       <div className="header">
         <div className="headerBag">
-          <FaShoppingBag className="shoppingBag" />
+          <Link to={'bag'}>
+            <button className="headerButton">
+              <FaShoppingBag className="shoppingBag" />
+              <span>{cart.length}</span>
+            </button>
+          </Link>
         </div>
       </div>
       {<Outlet />}
