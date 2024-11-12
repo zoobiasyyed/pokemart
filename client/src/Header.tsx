@@ -12,7 +12,7 @@ export function Header() {
           <Link to={'bag'}>
             <button className="headerButton">
               <FaShoppingBag className="shoppingBag" />
-              <span>{cart.length}</span>
+              <span className="contextNumber">{cart.length}</span>
             </button>
           </Link>
         </div>
