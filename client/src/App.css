@@ -25,6 +25,12 @@ body {
   height: 100vh;
 }
 
+.containerBag {
+  width: 100%;
+  background-color: white;
+  height: 200vh;
+}
+
 .pokemartLogo {
   padding-top: 10px;
   padding-right: 5px;
@@ -173,6 +179,23 @@ body {
   border-radius: 20px;
   background-color: red;
   font-size: 10px;
+}
+
+.bagInventory {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.bagItemName {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+}
+
+.backBag {
+  padding: 10px;
+  display: flex;
 }
 
 @media screen and (width >= 600px) {
