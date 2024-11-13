@@ -9,27 +9,25 @@ export function Home() {
 
   return (
     <div className="homeContainer">
-      <div className="flex flex-wrap mb-4">
+      <div className="homeButtons">
         {!user && (
-          <>
-            <div className="relative flex-grow flex-1 px-4">
+          <div className="entryBox">
+            <div className="entryLogo">PokeMart</div>
+            <div>
               <button
-                className="inline-block align-middle text-center border rounded py-1 px-3 bg-blue-600 text-white"
+                className="signUpButton"
                 onClick={() => navigate('sign-up')}>
                 Sign Up
               </button>
-            </div>
-            <div className="relative flex-grow flex-1 px-4">
               <button
-                className="inline-block align-middle text-center border rounded py-1 px-3 bg-blue-600 text-white"
+                className="signUpButton"
                 onClick={() => navigate('sign-in')}>
                 Sign In
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
-      {!user && <p>Not signed in</p>}
       {user && <Header />}
       {user && <Products />}
     </div>
