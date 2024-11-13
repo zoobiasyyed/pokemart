@@ -41,7 +41,7 @@ export function RegistrationForm() {
   }
 
   return (
-    <div className="container">
+    <div className="signInContainer">
       <h2 className="text-xl font-bold">Register</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-wrap mb-1">

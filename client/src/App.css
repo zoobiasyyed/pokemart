@@ -206,6 +206,14 @@ body {
   background-position: center;
 }
 
+.signInContainer {
+  background-image: url('../public/images/desktop.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position: center;
+}
+
 @media screen and (width >= 600px) {
   .imageCard {
     width: calc(100% / 4);

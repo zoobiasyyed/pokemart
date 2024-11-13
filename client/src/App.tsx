@@ -27,9 +27,9 @@ export default function App() {
       <CartContext.Provider value={cartContextValues}>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="sign-up" element={<RegistrationForm />} />
+          <Route path="sign-in" element={<SignInForm />} />
           <Route path="/" element={<Header />}>
-            <Route path="sign-up" element={<RegistrationForm />} />
-            <Route path="sign-in" element={<SignInForm />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:productId" element={<ProductDetails />} />
             <Route path="*" element={<NotFound />} />

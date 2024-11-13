@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './useUser';
 import { Products } from './Products';
+import { Header } from './Header';
 
 export function Home() {
-  const { user, handleSignOut } = useUser();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   return (
@@ -27,25 +28,9 @@ export function Home() {
             </div>
           </>
         )}
-        {user && (
-          <div className="relative flex-grow flex-1 px-4">
-            <button
-              className="inline-block align-middle text-center border rounded py-1 px-3 bg-blue-600 text-white"
-              onClick={() => {
-                handleSignOut();
-                navigate('/');
-              }}>
-              Sign Out
-            </button>
-          </div>
-        )}
       </div>
-      {user && (
-        <p className="py-2">
-          Signed in as {user.username} with ID: {user.userId}
-        </p>
-      )}
       {!user && <p>Not signed in</p>}
+      {user && <Header />}
       {user && <Products />}
     </div>
   );
