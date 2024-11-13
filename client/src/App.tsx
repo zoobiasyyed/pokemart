@@ -8,6 +8,10 @@ import { ShoppingBag } from './ShoppingBag';
 import { CartContext } from './CartContext';
 import { useState } from 'react';
 import { Product } from './Products';
+import { Home } from './Home';
+import { RegistrationForm } from './RegistrationForm';
+import { SignInForm } from './SignInForm';
+import { UserProvider } from './UserContext';
 
 export default function App() {
   const [cart, setCart] = useState<Product[]>([]);
@@ -19,15 +23,20 @@ export default function App() {
 
   const cartContextValues = { cart, addToCart };
   return (
-    <CartContext.Provider value={cartContextValues}>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<Products />} />
-          <Route path="products/:productId" element={<ProductDetails />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="bag" element={<ShoppingBag />} />
-        </Route>
-      </Routes>
-    </CartContext.Provider>
+    <UserProvider>
+      <CartContext.Provider value={cartContextValues}>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="sign-up" element={<RegistrationForm />} />
+          <Route path="sign-in" element={<SignInForm />} />
+          <Route path="/" element={<Header />}>
+            <Route path="products" element={<Products />} />
+            <Route path="products/:productId" element={<ProductDetails />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="bag" element={<ShoppingBag />} />
+          </Route>
+        </Routes>
+      </CartContext.Provider>
+    </UserProvider>
   );
 }

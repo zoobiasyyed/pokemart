@@ -2,7 +2,19 @@
 import 'dotenv/config';
 import express from 'express';
 import pg from 'pg';
-import { ClientError, errorMiddleware } from './lib/index.js';
+import argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
+import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
+
+type User = {
+  userId: number;
+  username: string;
+  hashedPassword: string;
+};
+type Auth = {
+  username: string;
+  password: string;
+};
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -11,11 +23,68 @@ const db = new pg.Pool({
   },
 });
 
+const hashKey = process.env.TOKEN_SECRET;
+if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
+
 const app = express();
 app.use(express.json());
 
+app.post('/api/auth/sign-up', async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      throw new ClientError(400, 'username and password are required fields');
+    }
+    const hashedPassword = await argon2.hash(password);
+    const sql = `
+     insert into "users" ("username", "hashedPassword")
+     values ($1, $2)
+     returning "userId", "username"`;
+    const params = [username, hashedPassword];
+    const result = await db.query(sql, params);
+    const users = result.rows[0];
+    res.status(201).json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/auth/sign-in', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(401, 'invalid login');
+    }
+
+    const sql = `
+     Select "userId", "hashedPassword", "username"
+     From "users"
+     Where "username" = $1`;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const user = result.rows[0];
+
+    if (!user) throw new ClientError(400, 'invalid login');
+
+    const match = await argon2.verify(user.hashedPassword, password);
+
+    if (!match) throw new ClientError(401, 'Invalid Login');
+
+    const payload = {
+      userId: user.userId,
+      username: user.username,
+    };
+
+    const token = jwt.sign(payload, hashKey);
+
+    res.status(200).json({ user: payload, token });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // getting all the products
-app.get('/api/products', async (req, res, next) => {
+app.get('/api/products', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
     Select *
@@ -27,29 +96,8 @@ app.get('/api/products', async (req, res, next) => {
   }
 });
 
-// gonna work on categories later
-// app.get('/api/products/categories/:category', async (req, res, next) => {
-//   try {
-//     const { category } = req.params;
-//     if (!category || typeof category !== 'string') {
-//       throw new ClientError(400, `not a valid category: ${category}`);
-//     }
-//     const sql = `
-//     Select *
-//     from "products"
-//     Where "category" = $1`;
-//     const results = await db.query(sql, [category]);
-//     const categoryResult = results.rows[0];
-//     if (!categoryResult)
-//       throw new ClientError(404, `categoryResult ${category} not found`);
-//     res.json(categoryResult);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 // getting the product with specific id (will be used in product details page)
-app.get('/api/products/:productId', async (req, res, next) => {
+app.get('/api/products/:productId', authMiddleware, async (req, res, next) => {
   try {
     const { productId } = req.params;
     if (!Number.isInteger(+productId)) {
@@ -59,7 +107,8 @@ app.get('/api/products/:productId', async (req, res, next) => {
     Select *
     from "products"
     Where "productId" = $1`;
-    const results = await db.query(sql, [productId]);
+    const params = [productId];
+    const results = await db.query(sql, params);
     const product = results.rows[0];
     if (!product) throw new ClientError(404, `product ${productId} not found`);
     res.json(product);
@@ -75,11 +124,6 @@ const uploadsStaticDir = new URL('public', import.meta.url).pathname;
 app.use(express.static(reactStaticDir));
 // Static directory for file uploads server/public/
 app.use(express.static(uploadsStaticDir));
-app.use(express.json());
-
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello, World!' });
-});
 
 /*
  * Handles paths that aren't handled by any other route handler.
