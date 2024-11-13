@@ -133,6 +133,8 @@ body {
 }
 
 .backDetails {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 12px;
   background-color: rgb(172, 241, 255);
   padding: 10px;
   display: flex;
@@ -165,6 +167,10 @@ body {
 }
 
 .detailsButton {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+  border-color: #fff;
   margin: 30px;
 }
 
@@ -212,6 +218,14 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   background-position: center;
+}
+
+.signOutButton {
+  margin-top: 18px;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 10px;
+  font-weight: 100;
+  border-color: #fff;
 }
 
 @media screen and (width >= 600px) {
