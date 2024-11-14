@@ -53,6 +53,7 @@ export function Products() {
     <div className="container">
       <img className="pokemartLogo" src="/images/pokemart.png" />
       <div className="img-back">
+        <div className="allItems">All Items</div>
         <div className="productsMap">
           {products?.map((product) => (
             <Link

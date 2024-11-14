@@ -10,7 +10,7 @@ export function ShoppingBag() {
       <Link className="backBag" to="/">
         &lt; Back
       </Link>
-      <h2 className="bagInventory">Bag Inventory</h2>
+      <h2 className="bagInventory">Inventory</h2>
       <div>
         {cart.map((prod) => (
           <ItemCard products={prod} />

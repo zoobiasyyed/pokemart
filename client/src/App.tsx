@@ -20,6 +20,7 @@ export default function App() {
     const newCart = [...cart, product];
     setCart(newCart);
   }
+  //try catch await for fetch that calls the post and add another function for remove from cart and just quanity (put)
 
   const cartContextValues = { cart, addToCart };
   return (

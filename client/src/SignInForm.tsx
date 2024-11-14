@@ -69,7 +69,7 @@ export function SignInForm() {
             </div>
           </div>
           <button disabled={isLoading} className="signUpButton">
-            Sign In
+            Enter
           </button>
         </form>
       </div>

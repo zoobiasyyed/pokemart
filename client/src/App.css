@@ -37,6 +37,14 @@ body {
   width: 300px;
 }
 
+.allItems {
+  display: flex;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 15px;
+  color: white;
+  padding: 10px;
+}
+
 .img-back {
   background-color: #4988df;
 }
