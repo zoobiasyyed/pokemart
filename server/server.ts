@@ -144,6 +144,11 @@ app.post('/api/bag', authMiddleware, async (req, res, next) => {
     const params = [productId, quantity, req.user?.userId];
     const result = await db.query(sql, params);
     const bagItems = result.rows[0];
+    const sql2 = `Select *
+    From "products"
+    Where "productId" = $1`;
+    const result2 = await db.query(sql2, [bagItems.productId]);
+    bagItems.product = result2.rows[0];
     res.status(201).json(bagItems);
   } catch (err) {
     next(err);
@@ -167,6 +172,11 @@ app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
     const result = await db.query(sql, params);
     const editedQuantity = result.rows[0];
     if (!editedQuantity) throw new ClientError(404, ` ${cartItemId} not found`);
+    const sql2 = `Select *
+    From "products"
+    Where "productId" = $1`;
+    const result2 = await db.query(sql2, [editedQuantity.productId]);
+    editedQuantity.product = result2.rows[0];
     res.status(204).json(editedQuantity);
   } catch (err) {
     next(err);
@@ -187,7 +197,7 @@ app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
     const result = await db.query(sql, params);
     const cartItem = result.rows[0];
     if (!cartItem) throw new ClientError(404, `${cartItemId} not found`);
-    res.status(204).json(cartItem);
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

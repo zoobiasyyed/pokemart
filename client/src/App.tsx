@@ -4,7 +4,7 @@ import { ProductDetails } from './ProductDetails';
 import { Products } from './Products';
 import { NotFound } from './NotFound';
 import { Route, Routes } from 'react-router-dom';
-import { ShoppingBag } from './ShoppingBag';
+import { CartItems, ShoppingBag } from './ShoppingBag';
 import { CartContext } from './CartContext';
 import { useState } from 'react';
 import { Product } from './Products';
@@ -15,10 +15,10 @@ import { UserProvider } from './UserContext';
 import { readToken } from './data';
 
 export default function App() {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItems[]>([]);
   const [error, setError] = useState<unknown>();
 
-  async function addToCart(product) {
+  async function addToCart(product: Product) {
     try {
       //post call
       const response = await fetch('/api/bag', {
@@ -32,13 +32,38 @@ export default function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = (await response.json()) as Product;
+      const data = (await response.json()) as CartItems;
       const newCart = [...cart, data];
       setCart(newCart);
     } catch (err) {
       setError(err);
     }
   }
+
+  //putCall
+  async function updateQuantity(cartItem: CartItems) {
+    try {
+      const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${readToken()}`,
+        },
+        body: JSON.stringify({ quantity: cartItem.quantity }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = (await response.json()) as CartItems;
+      const newCart = cart.map((c) =>
+        c.cartItemId === cartItem.cartItemId ? data : c
+      );
+      setCart(newCart);
+    } catch (err) {
+      setError(err);
+    }
+  }
+  //remove Call
 
   if (error) {
     return (
@@ -50,7 +75,7 @@ export default function App() {
   }
   //try catch await for fetch that calls the post and add another function for remove from cart and just quanity (put)
 
-  const cartContextValues = { cart, addToCart };
+  const cartContextValues = { cart, addToCart, updateQuantity };
   return (
     <UserProvider>
       <CartContext.Provider value={cartContextValues}>

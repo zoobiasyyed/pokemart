@@ -401,6 +401,26 @@ body {
   );
 }
 
+.incrementQuantity {
+  display: flex;
+  justify-content: center;
+}
+
+.incrementButton {
+  padding: 10px;
+  margin: 10px;
+}
+
+.decrementButton {
+  padding: 11px;
+  margin: 10px;
+}
+
+.quantity {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+}
+
 .registerInput {
   margin: 10px;
 }
