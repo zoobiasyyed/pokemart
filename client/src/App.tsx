@@ -12,13 +12,41 @@ import { Home } from './Home';
 import { RegistrationForm } from './RegistrationForm';
 import { SignInForm } from './SignInForm';
 import { UserProvider } from './UserContext';
+import { readToken } from './data';
 
 export default function App() {
   const [cart, setCart] = useState<Product[]>([]);
+  const [error, setError] = useState<unknown>();
 
-  function addToCart(product) {
-    const newCart = [...cart, product];
-    setCart(newCart);
+  async function addToCart(product) {
+    try {
+      //post call
+      const response = await fetch('/api/bag', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${readToken()}`,
+        },
+        body: JSON.stringify({ productId: product.productId, quantity: 1 }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = (await response.json()) as Product;
+      const newCart = [...cart, data];
+      setCart(newCart);
+    } catch (err) {
+      setError(err);
+    }
+  }
+
+  if (error) {
+    return (
+      <div>
+        Error Loading :{' '}
+        {error instanceof Error ? error.message : 'Unknown Error'}
+      </div>
+    );
   }
   //try catch await for fetch that calls the post and add another function for remove from cart and just quanity (put)
 

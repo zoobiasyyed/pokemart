@@ -50,11 +50,14 @@ export function ProductDetails() {
     return <div>Product not found</div>;
   }
 
-  const handleNav = () => {
-    addToCart(products);
-    if (!products) throw new Error('Should never happen');
-    alert(`Added ${name} to the bag`);
-    navigate('/');
+  const handleNav = async () => {
+    try {
+      await addToCart(products);
+      alert(`Added ${name} to the bag`);
+      navigate('/');
+    } catch (err) {
+      if (!products) throw new Error('Should never happen');
+    }
   };
 
   const { name, price, description, photoUrl } = products;

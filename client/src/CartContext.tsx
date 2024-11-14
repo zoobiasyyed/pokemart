@@ -3,10 +3,10 @@ import { Product } from './Products';
 
 export type CartValue = {
   cart: Product[];
-  addToCart: (product: Product | undefined) => void;
+  addToCart: (product: Product | undefined) => Promise<void>;
 };
 
 export const CartContext = createContext<CartValue>({
   cart: [],
-  addToCart: () => undefined,
+  addToCart: () => new Promise(() => {}),
 });

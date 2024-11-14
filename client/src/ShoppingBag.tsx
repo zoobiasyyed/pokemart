@@ -24,6 +24,7 @@ type CardProps = {
   products: Product;
 };
 
+// need to add quantity and delete button
 function ItemCard({ products }: CardProps) {
   return (
     <div className="cartCard">
