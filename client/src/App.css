@@ -425,6 +425,16 @@ body {
   margin: 10px;
 }
 
+.addCart {
+  margin-left: 100px;
+  text-align: center;
+  background-color: #4988dfad;
+  width: 200px;
+  font-family: 'Press Start 2P', sans-serif;
+  color: rgb(0, 4, 121);
+  border-radius: 10px;
+}
+
 @media screen and (width >= 600px) {
   .imageCard {
     width: calc(100% / 4);

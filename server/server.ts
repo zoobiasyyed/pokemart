@@ -122,6 +122,7 @@ app.get('/api/bag/', authMiddleware, async (req, res, next) => {
     const sql = `
     Select *
     From "cartItems"
+    Join "products" using ("productId")
     where "userId" = $1
     `;
     const result = await db.query(sql, [req.user?.userId]);
@@ -148,8 +149,8 @@ app.post('/api/bag', authMiddleware, async (req, res, next) => {
     From "products"
     Where "productId" = $1`;
     const result2 = await db.query(sql2, [bagItems.productId]);
-    bagItems.product = result2.rows[0];
-    res.status(201).json(bagItems);
+    const product = result2.rows[0];
+    res.status(201).json({ ...bagItems, ...product });
   } catch (err) {
     next(err);
   }
@@ -176,8 +177,8 @@ app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
     From "products"
     Where "productId" = $1`;
     const result2 = await db.query(sql2, [editedQuantity.productId]);
-    editedQuantity.product = result2.rows[0];
-    res.status(200).json(editedQuantity);
+    const product = result2.rows[0];
+    res.status(200).json({ ...editedQuantity, ...product });
   } catch (err) {
     next(err);
   }
