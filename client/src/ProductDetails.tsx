@@ -7,10 +7,12 @@ import { readToken } from './data';
 export function ProductDetails() {
   const { productId } = useParams();
   const [products, setProducts] = useState<Product | undefined>();
-  const [isAdded, setIsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, cart } = useContext(CartContext);
+
+  if (productId === undefined) throw new Error('not found');
+  const isAdded = cart.find((cart) => cart.productId === +productId);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -54,7 +56,6 @@ export function ProductDetails() {
     try {
       await addToCart(products);
       alert(`Added ${name} to the bag`);
-      setIsAdded(true);
     } catch (err) {
       if (!products) throw new Error('Should never happen');
     }
