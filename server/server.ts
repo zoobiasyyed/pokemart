@@ -84,7 +84,7 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 });
 
 // getting all the products
-app.get('/api/products', authMiddleware, async (req, res, next) => {
+app.get('/api/products', async (req, res, next) => {
   try {
     const sql = `
     Select *
@@ -97,7 +97,7 @@ app.get('/api/products', authMiddleware, async (req, res, next) => {
 });
 
 // getting the product with specific id (will be used in product details page)
-app.get('/api/products/:productId', authMiddleware, async (req, res, next) => {
+app.get('/api/products/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
     if (!Number.isInteger(+productId)) {
@@ -112,6 +112,92 @@ app.get('/api/products/:productId', authMiddleware, async (req, res, next) => {
     const product = results.rows[0];
     if (!product) throw new ClientError(404, `product ${productId} not found`);
     res.json(product);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/bag/', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    Select *
+    From "cartItems"
+    where "userId" = $1
+    `;
+    const result = await db.query(sql, [req.user?.userId]);
+    const bag = result.rows;
+    res.status(200).json(bag);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/bag', authMiddleware, async (req, res, next) => {
+  try {
+    const { productId, quantity } = req.body;
+    if (!productId) throw new ClientError(400, `productId is undefined`);
+    if (!quantity) throw new ClientError(400, `quantity is undefined`);
+    const sql = `
+    insert into "cartItems" ("productId", "quantity", "userId")
+     values ($1, $2, $3)
+     returning *`;
+    const params = [productId, quantity, req.user?.userId];
+    const result = await db.query(sql, params);
+    const bagItems = result.rows[0];
+    const sql2 = `Select *
+    From "products"
+    Where "productId" = $1`;
+    const result2 = await db.query(sql2, [bagItems.productId]);
+    bagItems.product = result2.rows[0];
+    res.status(201).json(bagItems);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
+  try {
+    const { cartItemId } = req.params;
+    if (!Number.isInteger(+cartItemId)) {
+      throw new ClientError(400, `Non-integer cartItemId: ${cartItemId}`);
+    }
+    const { quantity } = req.body;
+    if (!quantity) throw new ClientError(400, `quantity is undefined`);
+    const sql = `
+    update "cartItems"
+    set "quantity" = $1
+    Where "cartItemId" = $2 and "userId" = $3
+    returning *`;
+    const params = [quantity, cartItemId, req.user?.userId];
+    const result = await db.query(sql, params);
+    const editedQuantity = result.rows[0];
+    if (!editedQuantity) throw new ClientError(404, ` ${cartItemId} not found`);
+    const sql2 = `Select *
+    From "products"
+    Where "productId" = $1`;
+    const result2 = await db.query(sql2, [editedQuantity.productId]);
+    editedQuantity.product = result2.rows[0];
+    res.status(200).json(editedQuantity);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
+  try {
+    const { cartItemId } = req.params;
+    if (!Number.isInteger(+cartItemId)) {
+      throw new ClientError(400, `Non-integer cartItemId: ${cartItemId}`);
+    }
+    const sql = `
+    Delete from "cartItems"
+    Where "cartItemId" = $1  and "userId" = $2
+    returning *`;
+    const params = [cartItemId, req.user?.userId];
+    const result = await db.query(sql, params);
+    const cartItem = result.rows[0];
+    if (!cartItem) throw new ClientError(404, `${cartItemId} not found`);
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

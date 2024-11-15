@@ -15,12 +15,12 @@ export function Header() {
           {user && (
             <div className="relative flex-grow flex-1 px-4">
               <button
-                className="inline-block align-middle text-center border rounded py-1 px-3 bg-blue-600 text-white"
+                className="signOutButton"
                 onClick={() => {
                   handleSignOut();
                   navigate('/');
                 }}>
-                Sign Out
+                Exit
               </button>
             </div>
           )}

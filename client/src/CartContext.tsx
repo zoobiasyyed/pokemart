@@ -1,12 +1,17 @@
 import { createContext } from 'react';
 import { Product } from './Products';
+import { CartItems } from './ShoppingBag';
 
 export type CartValue = {
-  cart: Product[];
-  addToCart: (product: Product | undefined) => void;
+  cart: CartItems[];
+  addToCart: (product: Product) => Promise<void>;
+  updateQuantity: (cartItem: CartItems) => Promise<void>;
+  removeItem: (cartItem: CartItems) => Promise<void>;
 };
 
 export const CartContext = createContext<CartValue>({
   cart: [],
-  addToCart: () => undefined,
+  addToCart: () => new Promise(() => {}),
+  updateQuantity: () => new Promise(() => {}),
+  removeItem: () => new Promise(() => {}),
 });

@@ -50,39 +50,52 @@ export function ProductDetails() {
     return <div>Product not found</div>;
   }
 
-  const handleNav = () => {
-    addToCart(products);
-    if (!products) throw new Error('Should never happen');
-    alert(`Added ${name} to the bag`);
-    navigate('/');
+  const handleNav = async () => {
+    try {
+      await addToCart(products);
+      alert(`Added ${name} to the bag`);
+      navigate('/');
+    } catch (err) {
+      if (!products) throw new Error('Should never happen');
+    }
   };
 
   const { name, price, description, photoUrl } = products;
 
   return (
-    <div className="containerDetails">
+    <div>
       <div className="productDetails">
         <Link className="backDetails" to="/">
           &lt; Back
         </Link>
       </div>
-      <div>
-        <div>
-          <img className="detailsImage" src={photoUrl} />
-          <p className="details-text">{'$' + (price / 100).toFixed(2)}</p>
+      <div className="containerDetails">
+        <div className="detailsBox">
+          <div>
+            <img className="detailsImage" src={photoUrl} />
+            <p className="details-text">{name}</p>
+          </div>
+          <div>
+            <p className="details-text">{'$' + (price / 100).toFixed(2)}</p>
+          </div>
+          <div>
+            <p className="details-text">{description}</p>
+          </div>
+          <div>
+            <button onClick={handleNav} className="detailsButton">
+              Add to Bag
+            </button>
+          </div>
         </div>
-        <div>
-          <p className="details-text">{name}</p>
-        </div>
-        <div>
-          <p className="details-text">{description}</p>
-        </div>
-      </div>
-      <div>
-        <button onClick={handleNav} className="detailsButton">
-          Add to Bag
-        </button>
       </div>
     </div>
   );
+}
+
+{
+  /* <div className="productDetails">
+        <Link className="backDetails" to="/">
+          &lt; Back
+        </Link>
+      </div> */
 }

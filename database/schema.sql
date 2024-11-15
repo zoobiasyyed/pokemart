@@ -21,18 +21,13 @@ CREATE TABLE "users" (
   "hashedPassword" text NOT NULL
 );
 
-CREATE TABLE "cart" (
-  "cartId" serial PRIMARY KEY,
-  "userId" integer NOT NULL
-);
 
 CREATE TABLE "cartItems" (
   "cartItemId" serial PRIMARY KEY,
-  "cartId" integer NOT NULL,
+  "userId" integer NOT NULL,
   "productId" integer NOT NULL,
   "quantity" integer DEFAULT 0
 );
 
-ALTER TABLE "cart" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");
 
-ALTER TABLE "cartItems" ADD FOREIGN KEY ("cartId") REFERENCES "cart" ("cartId");
+ALTER TABLE "cartItems" ADD FOREIGN KEY ("userId") REFERENCES "users" ("userId");
