@@ -6,10 +6,12 @@ export type CartValue = {
   cart: CartItems[];
   addToCart: (product: Product) => Promise<void>;
   updateQuantity: (cartItem: CartItems) => Promise<void>;
+  removeItem: (cartItem: CartItems) => Promise<void>;
 };
 
 export const CartContext = createContext<CartValue>({
   cart: [],
   addToCart: () => new Promise(() => {}),
   updateQuantity: () => new Promise(() => {}),
+  removeItem: () => new Promise(() => {}),
 });

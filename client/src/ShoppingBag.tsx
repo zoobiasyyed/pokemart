@@ -13,12 +13,20 @@ export type CartItems = {
 
 export function ShoppingBag() {
   const [error, setError] = useState<unknown>();
-  const { cart, updateQuantity } = useContext(CartContext);
+  const { cart, updateQuantity, removeItem } = useContext(CartContext);
   console.log(cart);
 
   async function updatedQuantity(cartItem: CartItems) {
     try {
       await updateQuantity(cartItem);
+    } catch (err) {
+      setError(err);
+    }
+  }
+
+  async function removedItem(cartItem: CartItems) {
+    try {
+      await removeItem(cartItem);
     } catch (err) {
       setError(err);
     }
@@ -45,6 +53,7 @@ export function ShoppingBag() {
             key={prod.productId}
             productItem={prod}
             updateQuantity={updatedQuantity}
+            removeItem={removedItem}
           />
         ))}
       </div>
@@ -55,18 +64,29 @@ export function ShoppingBag() {
 type CardProps = {
   productItem: CartItems;
   updateQuantity: (cartItem: CartItems) => void;
+  removeItem: (cartItem: CartItems) => void;
 };
 
 // need to add quantity and delete button
-function ItemCard({ productItem, updateQuantity }: CardProps) {
+function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
   const product = productItem.product;
   const quantity = productItem.quantity;
   console.log(quantity);
   console.log(productItem);
+  const updatedPrice = product.price * quantity;
 
   const handleIncrement = () => {
     updateQuantity({ ...productItem, quantity: quantity + 1 });
   };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      updateQuantity({ ...productItem, quantity: quantity - 1 });
+    } else {
+      removeItem(productItem);
+    }
+  };
+
   return (
     <div className="cartCard">
       <div>
@@ -74,9 +94,12 @@ function ItemCard({ productItem, updateQuantity }: CardProps) {
       </div>
       <div>
         <p className="bagItemName">{product.name}</p>
+        <p className="bagItemName">{'$' + (updatedPrice / 100).toFixed(2)}</p>
       </div>
       <div className="incrementQuantity">
-        <button className="decrementButton">-</button>
+        <button className="decrementButton" onClick={handleDecrement}>
+          -
+        </button>
         <p className="quantity">{quantity}</p>
         <button className="incrementButton" onClick={handleIncrement}>
           +

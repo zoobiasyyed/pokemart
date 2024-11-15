@@ -177,7 +177,7 @@ app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
     Where "productId" = $1`;
     const result2 = await db.query(sql2, [editedQuantity.productId]);
     editedQuantity.product = result2.rows[0];
-    res.status(204).json(editedQuantity);
+    res.status(200).json(editedQuantity);
   } catch (err) {
     next(err);
   }
@@ -191,7 +191,7 @@ app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
     }
     const sql = `
     Delete from "cartItems"
-    Where "cartItemId" = $1  and "userId" = $2,
+    Where "cartItemId" = $1  and "userId" = $2
     returning *`;
     const params = [cartItemId, req.user?.userId];
     const result = await db.query(sql, params);

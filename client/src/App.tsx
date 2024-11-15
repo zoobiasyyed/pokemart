@@ -65,6 +65,25 @@ export default function App() {
   }
   //remove Call
 
+  async function removeItem(cartItem: CartItems) {
+    try {
+      const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${readToken()}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const newCart = cart.filter((c) => c.cartItemId !== cartItem.cartItemId);
+      setCart(newCart);
+    } catch (err) {
+      setError(err);
+    }
+  }
+
   if (error) {
     return (
       <div>
@@ -75,7 +94,7 @@ export default function App() {
   }
   //try catch await for fetch that calls the post and add another function for remove from cart and just quanity (put)
 
-  const cartContextValues = { cart, addToCart, updateQuantity };
+  const cartContextValues = { cart, addToCart, updateQuantity, removeItem };
   return (
     <UserProvider>
       <CartContext.Provider value={cartContextValues}>
