@@ -3,11 +3,10 @@ import { CartContext } from './CartContext';
 import { Product } from './Products';
 import { Link } from 'react-router-dom';
 
-export type CartItems = {
+export type CartItems = Product & {
   cartItemId: number;
   userId: number;
   productId: number;
-  product: Product;
   quantity: number;
 };
 
@@ -50,7 +49,7 @@ export function ShoppingBag() {
       <div>
         {cart.map((prod) => (
           <ItemCard
-            key={prod.productId}
+            key={prod.cartItemId}
             productItem={prod}
             updateQuantity={updatedQuantity}
             removeItem={removedItem}
@@ -69,11 +68,8 @@ type CardProps = {
 
 // need to add quantity and delete button
 function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
-  const product = productItem.product;
   const quantity = productItem.quantity;
-  console.log(quantity);
-  console.log(productItem);
-  const updatedPrice = product.price * quantity;
+  const updatedPrice = productItem.price * quantity;
 
   const handleIncrement = () => {
     updateQuantity({ ...productItem, quantity: quantity + 1 });
@@ -90,10 +86,10 @@ function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
   return (
     <div className="cartCard">
       <div>
-        <img src={product.photoUrl} />
+        <img src={productItem.photoUrl} />
       </div>
       <div>
-        <p className="bagItemName">{product.name}</p>
+        <p className="bagItemName">{productItem.name}</p>
         <p className="bagItemName">{'$' + (updatedPrice / 100).toFixed(2)}</p>
       </div>
       <div className="incrementQuantity">

@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { type Product } from './Products';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import { readToken } from './data';
 
 export function ProductDetails() {
   const { productId } = useParams();
   const [products, setProducts] = useState<Product | undefined>();
+  const [isAdded, setIsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
   const { addToCart } = useContext(CartContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -54,7 +54,7 @@ export function ProductDetails() {
     try {
       await addToCart(products);
       alert(`Added ${name} to the bag`);
-      navigate('/');
+      setIsAdded(true);
     } catch (err) {
       if (!products) throw new Error('Should never happen');
     }
@@ -82,9 +82,13 @@ export function ProductDetails() {
             <p className="details-text">{description}</p>
           </div>
           <div>
-            <button onClick={handleNav} className="detailsButton">
-              Add to Bag
-            </button>
+            {isAdded ? (
+              <p className="addCart">Item Added to Bag!</p>
+            ) : (
+              <button onClick={handleNav} className="detailsButton">
+                Add to Bag
+              </button>
+            )}
           </div>
         </div>
       </div>
