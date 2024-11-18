@@ -158,8 +158,8 @@ body {
 
 .detailsBox {
   background-color: #f0e0b8;
-  width: 400px;
-  height: 450px;
+  width: 350px;
+  height: 420px;
   clip-path: polygon(
     0 calc(100% - 20px),
     4px calc(100% - 20px),
@@ -281,21 +281,6 @@ body {
 
 .spritesContainer {
   position: relative;
-}
-
-.pikachu {
-  position: absolute;
-  right: 40px;
-  top: 100px;
-  width: 40px;
-}
-
-.umbreon {
-  position: absolute;
-  transform: scaleX(-1);
-  left: 95px;
-  top: 400px;
-  width: 45px;
 }
 
 .cartCard {
@@ -465,7 +450,7 @@ body {
 }
 
 .addCart {
-  margin-left: 100px;
+  margin-left: 70px;
   text-align: center;
   background-color: #4988dfad;
   width: 200px;

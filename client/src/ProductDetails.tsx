@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { type Product } from './Products';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import { readToken } from './data';
 
@@ -10,6 +10,7 @@ export function ProductDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<unknown>();
   const { addToCart, cart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   if (productId === undefined) throw new Error('not found');
   const isAdded = cart.find((cart) => cart.productId === +productId);
@@ -56,6 +57,7 @@ export function ProductDetails() {
     try {
       await addToCart(products);
       alert(`Added ${name} to the bag`);
+      navigate('/');
     } catch (err) {
       if (!products) throw new Error('Should never happen');
     }
@@ -65,11 +67,7 @@ export function ProductDetails() {
 
   return (
     <div>
-      <div className="productDetails">
-        <Link className="backDetails" to="/">
-          &lt; Back
-        </Link>
-      </div>
+      <div className="productDetails"></div>
       <div className="containerDetails">
         <div className="detailsBox">
           <div>
