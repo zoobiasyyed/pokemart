@@ -10,11 +10,13 @@ import { Home } from './Home';
 import { RegistrationForm } from './RegistrationForm';
 import { SignInForm } from './SignInForm';
 import { UserProvider } from './UserContext';
+import { BackGroundAudio } from './BackGroundAudio';
 
 export default function App() {
   return (
     <UserProvider>
       <CartProvider>
+        <BackGroundAudio />
         <Routes>
           <Route index element={<Home />} />
           <Route path="sign-up" element={<RegistrationForm />} />
