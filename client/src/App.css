@@ -29,16 +29,15 @@ body {
   width: 100%;
   background-color: rgb(237, 161, 161);
   min-height: 100vh;
-  padding-bottom: 200px;
   box-sizing: border-box;
 }
 
 .checkoutContainer {
   background-color: #0c4782;
-  height: 200px;
+  height: 150px;
   width: 100%;
-  position: fixed;
-  top: 600px;
+  position: relative;
+  top: 100px;
 }
 
 .pokemartLogo {
@@ -307,7 +306,7 @@ body {
 }
 
 .cartDiv {
-  width: 25%;
+  width: 50%;
 }
 
 .signInContainer {
@@ -489,15 +488,40 @@ body {
   border-color: #fff;
 }
 
+.totalPrice {
+  display: flex;
+  justify-content: center;
+}
+
+.total {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 17px;
+  margin: 15px;
+}
+
+.checkoutButton {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
 @media screen and (width >= 600px) {
   .imageCard {
     width: calc(100% / 4);
+  }
+
+  .cartDiv {
+    width: 30%;
   }
 }
 
 @media screen and (width >= 750px) {
   .imageCard {
     width: calc(100% / 5);
+  }
+
+  .cartDiv {
+    width: 25%;
   }
 }
 

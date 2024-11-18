@@ -30,12 +30,13 @@ export function ShoppingBag() {
     }
   }
 
-  function totalPrice(cart) {
+  function totalPrice(cart: CartItems[]) {
     let totalItemPrice = 0;
     for (let i = 0; i < cart.length; i++) {
       const itemPrice = cart[i].price * cart[i].quantity;
       totalItemPrice += itemPrice;
     }
+    return totalItemPrice;
   }
 
   if (error) {
@@ -64,9 +65,12 @@ export function ShoppingBag() {
         ))}
       </div>
       <div className="checkoutContainer">
+        <div className="totalPrice">
+          <h2 className="total">Total Price: </h2>
+          <h2 className="total">{'$' + (totalPrice(cart) / 100).toFixed(2)}</h2>
+        </div>
         <div>
-          <h2>Total Price</h2>
-          <p></p>
+          <button className="checkoutButton">Check Out</button>
         </div>
       </div>
     </div>
