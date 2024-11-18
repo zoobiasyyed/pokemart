@@ -435,6 +435,16 @@ body {
   border-radius: 10px;
 }
 
+.audioButtonBackground {
+  display: flex;
+  background-color: aliceblue;
+  border: none;
+}
+
+.audioButton {
+  margin: 5px;
+}
+
 @media screen and (width >= 600px) {
   .imageCard {
     width: calc(100% / 4);

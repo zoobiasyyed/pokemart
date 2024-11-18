@@ -96,11 +96,3 @@ export function ProductDetails() {
     </div>
   );
 }
-
-{
-  /* <div className="productDetails">
-        <Link className="backDetails" to="/">
-          &lt; Back
-        </Link>
-      </div> */
-}
