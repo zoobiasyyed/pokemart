@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { FaPlay, FaPause } from 'react-icons/fa';
 
 export function BackGroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -21,7 +22,7 @@ export function BackGroundAudio() {
         <source src="/PokeMart.mp3" type="audio/mpeg" />
       </audio>
       <button className="audioButton" onClick={togglePlay}>
-        {isPlaying ? 'Pause Music' : 'Play Music'}
+        {isPlaying ? <FaPause /> : <FaPlay />}
       </button>
     </div>
   );

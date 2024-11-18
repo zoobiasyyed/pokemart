@@ -27,8 +27,18 @@ body {
 
 .containerBag {
   width: 100%;
-  background-color: white;
-  height: 200vh;
+  background-color: rgb(237, 161, 161);
+  min-height: 100vh;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+}
+
+.checkoutContainer {
+  background-color: #0c4782;
+  height: 200px;
+  width: 100%;
+  position: fixed;
+  top: 600px;
 }
 
 .pokemartLogo {
@@ -270,6 +280,36 @@ body {
   background-position: center;
 }
 
+.spritesContainer {
+  position: relative;
+}
+
+.pikachu {
+  position: absolute;
+  right: 40px;
+  top: 100px;
+  width: 40px;
+}
+
+.umbreon {
+  position: absolute;
+  transform: scaleX(-1);
+  left: 95px;
+  top: 400px;
+  width: 45px;
+}
+
+.cartCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.cartDiv {
+  width: 25%;
+}
+
 .signInContainer {
   display: flex;
   justify-content: center;
@@ -436,13 +476,17 @@ body {
 }
 
 .audioButtonBackground {
+  position: fixed;
   display: flex;
-  background-color: aliceblue;
   border: none;
 }
 
 .audioButton {
-  margin: 5px;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 11px;
+  margin: 10px;
+  margin-top: 13px;
+  border-color: #fff;
 }
 
 @media screen and (width >= 600px) {

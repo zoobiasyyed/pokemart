@@ -13,7 +13,6 @@ export type CartItems = Product & {
 export function ShoppingBag() {
   const [error, setError] = useState<unknown>();
   const { cart, updateQuantity, removeItem } = useContext(CartContext);
-  console.log(cart);
 
   async function updatedQuantity(cartItem: CartItems) {
     try {
@@ -28,6 +27,14 @@ export function ShoppingBag() {
       await removeItem(cartItem);
     } catch (err) {
       setError(err);
+    }
+  }
+
+  function totalPrice(cart) {
+    let totalItemPrice = 0;
+    for (let i = 0; i < cart.length; i++) {
+      const itemPrice = cart[i].price * cart[i].quantity;
+      totalItemPrice += itemPrice;
     }
   }
 
@@ -55,6 +62,12 @@ export function ShoppingBag() {
             removeItem={removedItem}
           />
         ))}
+      </div>
+      <div className="checkoutContainer">
+        <div>
+          <h2>Total Price</h2>
+          <p></p>
+        </div>
       </div>
     </div>
   );
@@ -85,21 +98,25 @@ function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
 
   return (
     <div className="cartCard">
-      <div>
-        <img src={productItem.photoUrl} />
+      <div className="cartDiv">
+        <div>
+          <img src={productItem.photoUrl} />
+        </div>
+        <div>
+          <p className="bagItemName">{productItem.name}</p>
+        </div>
       </div>
-      <div>
-        <p className="bagItemName">{productItem.name}</p>
+      <div className="cartDiv">
         <p className="bagItemName">{'$' + (updatedPrice / 100).toFixed(2)}</p>
-      </div>
-      <div className="incrementQuantity">
-        <button className="decrementButton" onClick={handleDecrement}>
-          -
-        </button>
-        <p className="quantity">{quantity}</p>
-        <button className="incrementButton" onClick={handleIncrement}>
-          +
-        </button>
+        <div className="incrementQuantity">
+          <button className="decrementButton" onClick={handleDecrement}>
+            -
+          </button>
+          <p className="quantity">{quantity}</p>
+          <button className="incrementButton" onClick={handleIncrement}>
+            +
+          </button>
+        </div>
       </div>
     </div>
   );
