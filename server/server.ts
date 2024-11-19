@@ -204,6 +204,22 @@ app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
   }
 });
 
+app.delete('/api/bag-all', authMiddleware, async (req, res, next) => {
+  try {
+    const sql = `
+    Delete from "cartItems"
+    Where "userId" = $1
+    returning *`;
+    const params = [req.user?.userId];
+    const result = await db.query(sql, params);
+    const cart = result.rows[0];
+    if (!cart) throw new ClientError(404, `No Items found in cart`);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Create paths for static directories
 const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
 const uploadsStaticDir = new URL('public', import.meta.url).pathname;

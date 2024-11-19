@@ -9,6 +9,7 @@ export type CartValue = {
   addToCart: (product: Product) => Promise<void>;
   updateQuantity: (cartItem: CartItems) => Promise<void>;
   removeItem: (cartItem: CartItems) => Promise<void>;
+  clearCart: () => Promise<void>;
 };
 
 export const CartContext = createContext<CartValue>({
@@ -16,6 +17,7 @@ export const CartContext = createContext<CartValue>({
   addToCart: () => new Promise(() => {}),
   updateQuantity: () => new Promise(() => {}),
   removeItem: () => new Promise(() => {}),
+  clearCart: () => new Promise(() => {}),
 });
 
 //create a cartprovider that looks like userprovider
@@ -120,6 +122,25 @@ export function CartProvider({ children }: Props) {
     }
   }
 
+  //remove Cart
+  async function clearCart() {
+    try {
+      const response = await fetch(`/api/bag-all`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${readToken()}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setCart([]);
+    } catch (err) {
+      setError(err);
+    }
+  }
+
   if (error) {
     return (
       <div>
@@ -129,7 +150,13 @@ export function CartProvider({ children }: Props) {
     );
   }
 
-  const cartContextValue = { cart, removeItem, addToCart, updateQuantity };
+  const cartContextValue = {
+    cart,
+    removeItem,
+    addToCart,
+    updateQuantity,
+    clearCart,
+  };
   return (
     <CartContext.Provider value={cartContextValue}>
       {children}

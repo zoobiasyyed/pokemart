@@ -39,7 +39,7 @@ export function Products() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (error) {

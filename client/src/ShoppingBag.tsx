@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { CartContext } from './CartContext';
 import { Product } from './Products';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export type CartItems = Product & {
   cartItemId: number;
@@ -12,7 +12,9 @@ export type CartItems = Product & {
 
 export function ShoppingBag() {
   const [error, setError] = useState<unknown>();
-  const { cart, updateQuantity, removeItem } = useContext(CartContext);
+  const { cart, updateQuantity, removeItem, clearCart } =
+    useContext(CartContext);
+  const navigate = useNavigate();
 
   async function updatedQuantity(cartItem: CartItems) {
     try {
@@ -38,6 +40,17 @@ export function ShoppingBag() {
     }
     return totalItemPrice;
   }
+
+  const handleClearCart = async () => {
+    try {
+      await clearCart();
+      alert('Thank You for Shopping with us, hope to see you again!');
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      alert('Error clearing cart');
+    }
+  };
 
   if (error) {
     return (
@@ -70,8 +83,11 @@ export function ShoppingBag() {
           <h2 className="total">{'$' + (totalPrice(cart) / 100).toFixed(2)}</h2>
         </div>
         <div>
-          <button className="checkoutButton">Check Out</button>
+          <button onClick={handleClearCart} className="checkoutButton">
+            Check Out
+          </button>
         </div>
+        <img className="chikorita" src="/images/chikorita.gif" />
       </div>
     </div>
   );
