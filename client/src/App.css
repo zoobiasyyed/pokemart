@@ -73,7 +73,6 @@ body {
 .productsMap {
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
 }
 
 .itemCard {
@@ -88,6 +87,8 @@ body {
 }
 
 .imageCard {
+  display: flex;
+  justify-content: center;
   width: calc(100% / 3);
 }
 
@@ -308,7 +309,7 @@ body {
   height: 220px;
   padding-top: 20px;
   padding-bottom: 10px;
-  border-radius: 9px;
+  border-radius: 2px;
 }
 
 .signInContainer {
@@ -474,6 +475,12 @@ body {
   font-family: 'Press Start 2P', sans-serif;
   color: rgb(0, 4, 121);
   border-radius: 10px;
+}
+
+.emptyCart {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 14px;
+  color: #051d3e;
 }
 
 .audioButtonBackground {

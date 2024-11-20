@@ -83,9 +83,13 @@ export function ShoppingBag() {
           <h2 className="total">{'$' + (totalPrice(cart) / 100).toFixed(2)}</h2>
         </div>
         <div>
-          <button onClick={handleClearCart} className="checkoutButton">
-            Check Out
-          </button>
+          {cart.length === 0 ? (
+            <h3 className="emptyCart">Your Bag is Empty!</h3>
+          ) : (
+            <button onClick={handleClearCart} className="checkoutButton">
+              Check Out
+            </button>
+          )}
         </div>
         <img className="chikorita" src="/images/chikorita.gif" />
       </div>
