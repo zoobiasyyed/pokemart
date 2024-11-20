@@ -19,55 +19,71 @@ body {
   color: #888;
 }
 
+/* Header */
+
+.header {
+  background-color: rgb(0, 5, 57);
+}
+
+.headerButton {
+  background-color: rgb(0, 5, 57);
+}
+
+.headerBag {
+  background-color: rgb(0, 5, 57);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signOutButton {
+  margin-top: 1.125rem;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 10px;
+  font-weight: 100;
+  border-color: #fff;
+}
+
+.shoppingBag {
+  margin: 0.625rem;
+}
+
+.contextNumber {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  right: 1rem;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 20px;
+  background-color: rgba(0, 183, 255, 0.549);
+  font-size: 0.625rem;
+}
+
+/* Products */
+
 .container {
   width: 100%;
   background-color: white;
   height: 100vh;
 }
 
-.containerBag {
-  width: 100%;
-  background-color: #d1f1d3;
-  min-height: 100vh;
-  padding-bottom: 120px;
-  box-sizing: border-box;
-}
-
-.checkoutContainer {
-  background-color: #769678;
-  height: 130px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
-
-.chikorita {
-  position: fixed;
-  bottom: 3%;
-  right: 4%;
-}
-
 .pokemartLogo {
-  padding-top: 10px;
-  padding-right: 5px;
+  padding-top: 0.625rem;
+  padding-right: 0.3125rem;
   width: 250px;
 }
 
-.loading {
-  background-color: #0c4782;
-  height: 100vh;
+.img-back {
+  background-color: #4988df;
 }
 
 .allItems {
   display: flex;
   font-family: 'Press Start 2P', sans-serif;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: white;
-  padding: 10px;
-}
-
-.img-back {
-  background-color: #4988df;
+  padding: 0.625rem;
 }
 
 .productsMap {
@@ -76,7 +92,7 @@ body {
 }
 
 .itemCard {
-  margin: 20px;
+  margin: 1.25rem;
   width: 100px;
   background-color: grey;
   height: 135px;
@@ -94,9 +110,121 @@ body {
 
 .product-image {
   background-color: #f4f0d6;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 0.625rem;
+  margin-top: 0.625rem;
   width: 60px;
+}
+
+.productName {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 0.5rem;
+  color: white;
+}
+
+/* ShoppingBag */
+
+.containerBag {
+  width: 100%;
+  background-color: #d1f1d3;
+  min-height: 100vh;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.backBag {
+  padding: 0.625rem;
+  display: flex;
+}
+
+.bagInventory {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.checkoutContainer {
+  background-color: #769678;
+  height: 130px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.totalPrice {
+  display: flex;
+  justify-content: center;
+}
+
+.total {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 0.9375rem;
+  margin: 0.9375rem;
+}
+
+.emptyCart {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 14px;
+  color: #051d3e;
+}
+
+.checkoutButton {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 1.25rem;
+  margin-top: 0.625rem;
+}
+
+.chikorita {
+  position: fixed;
+  bottom: 3%;
+  right: 4%;
+}
+
+.bagItemName {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+}
+
+.cartCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.875rem;
+}
+
+.cartDiv {
+  width: 50%;
+  background-color: #f0e0b8;
+  height: 220px;
+  padding-top: 1.25rem;
+  padding-bottom: 0.625rem;
+  border-radius: 2px;
+}
+
+.incrementQuantity {
+  display: flex;
+  justify-content: center;
+}
+
+.incrementButton {
+  padding: 0.625rem;
+  margin: 0.625rem;
+}
+
+.decrementButton {
+  padding: 0.6875rem;
+  margin: 0.625rem;
+}
+
+.quantity {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+}
+
+/* ProductDetails */
+
+.productDetails {
+  background-color: #fff;
 }
 
 .containerDetails {
@@ -109,64 +237,6 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
-}
-
-.productName {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 8px;
-  color: white;
-}
-
-.productDetails {
-  background-color: #fff;
-}
-
-.detailsImage {
-  background-color: #fff;
-  width: 100px;
-  margin-top: 15px;
-  padding: 20px;
-  padding-left: 100px;
-  padding-right: 100px;
-  border-radius: 20px;
-  clip-path: polygon(
-    0 calc(100% - 20px),
-    4px calc(100% - 20px),
-    4px calc(100% - 12px),
-    8px calc(100% - 12px),
-    8px calc(100% - 8px),
-    12px calc(100% - 8px),
-    12px calc(100% - 4px),
-    20px calc(100% - 4px),
-    20px 100%,
-    calc(100% - 20px) 100%,
-    calc(100% - 20px) calc(100% - 4px),
-    calc(100% - 12px) calc(100% - 4px),
-    calc(100% - 12px) calc(100% - 8px),
-    calc(100% - 8px) calc(100% - 8px),
-    calc(100% - 8px) calc(100% - 12px),
-    calc(100% - 4px) calc(100% - 12px),
-    calc(100% - 4px) calc(100% - 20px),
-    100% calc(100% - 20px),
-    100% 20px,
-    calc(100% - 4px) 20px,
-    calc(100% - 4px) 12px,
-    calc(100% - 8px) 12px,
-    calc(100% - 8px) 8px,
-    calc(100% - 12px) 8px,
-    calc(100% - 12px) 4px,
-    calc(100% - 20px) 4px,
-    calc(100% - 20px) 0,
-    20px 0,
-    20px 4px,
-    12px 4px,
-    12px 8px,
-    8px 8px,
-    8px 12px,
-    4px 12px,
-    4px 20px,
-    0 20px
-  );
 }
 
 .detailsBox {
@@ -213,11 +283,52 @@ body {
   );
 }
 
-.backDetails {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 12px;
-  padding: 10px;
-  display: flex;
+.detailsImage {
+  background-color: #fff;
+  width: 100px;
+  margin-top: 0.9375rem;
+  padding: 1.25rem;
+  padding-left: 100px;
+  padding-right: 100px;
+  border-radius: 20px;
+  clip-path: polygon(
+    0 calc(100% - 20px),
+    4px calc(100% - 20px),
+    4px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px 100%,
+    calc(100% - 20px) 100%,
+    calc(100% - 20px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 20px),
+    100% calc(100% - 20px),
+    100% 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 0,
+    20px 0,
+    20px 4px,
+    12px 4px,
+    12px 8px,
+    8px 8px,
+    8px 12px,
+    4px 12px,
+    4px 20px,
+    0 20px
+  );
 }
 
 .details-text {
@@ -225,64 +336,31 @@ body {
   color: black;
   margin: 0 auto;
   height: 100%;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
-.shoppingBag {
-  margin: 10px;
-}
-
-.header {
-  background-color: rgb(0, 5, 57);
-}
-
-.headerButton {
-  background-color: rgb(0, 5, 57);
-}
-
-.headerBag {
-  background-color: rgb(0, 5, 57);
+.detailsDiv {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.addCart {
+  background-color: #4988dfad;
+  width: 200px;
+  font-family: 'Press Start 2P', sans-serif;
+  color: rgb(0, 4, 121);
+  border-radius: 10px;
 }
 
 .detailsButton {
   font-family: 'Press Start 2P', sans-serif;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 100;
   border-color: #fff;
-  margin: 30px;
+  margin: 1.875rem;
 }
 
-.contextNumber {
-  position: absolute;
-  display: inline-flex;
-  justify-content: center;
-  right: 1rem;
-  align-items: center;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 20px;
-  background-color: rgba(0, 183, 255, 0.549);
-  font-size: 10px;
-}
-
-.bagInventory {
-  font-family: 'Press Start 2P', sans-serif;
-  color: black;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.bagItemName {
-  font-family: 'Press Start 2P', sans-serif;
-  color: black;
-}
-
-.backBag {
-  padding: 10px;
-  display: flex;
-}
+/* Home */
 
 .homeContainer {
   background-image: url('/images/desktop.png');
@@ -292,42 +370,10 @@ body {
   background-position: center;
 }
 
-.spritesContainer {
-  position: relative;
-}
-
-.cartCard {
+.homeButtons {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
-}
-
-.cartDiv {
-  width: 50%;
-  background-color: #f0e0b8;
-  height: 220px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  border-radius: 2px;
-}
-
-.signInContainer {
-  display: flex;
-  justify-content: center;
-  background-image: url('/images/desktop.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
-  background-position: center;
-}
-
-.signOutButton {
-  margin-top: 18px;
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 10px;
-  font-weight: 100;
-  border-color: #fff;
 }
 
 .entryBox {
@@ -377,23 +423,29 @@ body {
   );
 }
 
-.homeButtons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.entryLogo {
+  font-family: 'Press Start 2P', sans-serif;
+  margin-top: 1.25rem;
 }
 
 .signUpButton {
   font-family: 'Press Start 2P', sans-serif;
   font-size: 10px;
-  padding: 10px;
+  padding: 0.625rem;
   border-color: #fff;
-  margin: 20px;
+  margin: 1.25rem;
 }
 
-.entryLogo {
-  font-family: 'Press Start 2P', sans-serif;
-  margin-top: 20px;
+/* Registration Form */
+
+.signInContainer {
+  display: flex;
+  justify-content: center;
+  background-image: url('/images/desktop.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position: center;
 }
 
 .signInBox {
@@ -443,45 +495,11 @@ body {
   );
 }
 
-.incrementQuantity {
-  display: flex;
-  justify-content: center;
-}
-
-.incrementButton {
-  padding: 10px;
-  margin: 10px;
-}
-
-.decrementButton {
-  padding: 11px;
-  margin: 10px;
-}
-
-.quantity {
-  font-family: 'Press Start 2P', sans-serif;
-  color: black;
-}
-
 .registerInput {
-  margin: 10px;
+  margin: 0.625rem;
 }
 
-.addCart {
-  margin-left: 70px;
-  text-align: center;
-  background-color: #4988dfad;
-  width: 200px;
-  font-family: 'Press Start 2P', sans-serif;
-  color: rgb(0, 4, 121);
-  border-radius: 10px;
-}
-
-.emptyCart {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 14px;
-  color: #051d3e;
-}
+/* Background Audio */
 
 .audioButtonBackground {
   position: fixed;
@@ -492,26 +510,16 @@ body {
 .audioButton {
   font-family: 'Press Start 2P', sans-serif;
   font-size: 11px;
-  margin: 10px;
-  margin-top: 13px;
+  margin: 0.625rem;
+  margin-top: 0.8125rem;
   border-color: #fff;
 }
 
-.totalPrice {
-  display: flex;
-  justify-content: center;
-}
+/* used in multiple pages */
 
-.total {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 15px;
-  margin: 15px;
-}
-
-.checkoutButton {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 20px;
-  margin-top: 10px;
+.loading {
+  background-color: #0c4782;
+  height: 100vh;
 }
 
 @media screen and (width >= 600px) {

@@ -80,7 +80,7 @@ export function ProductDetails() {
           <div>
             <p className="details-text">{description}</p>
           </div>
-          <div>
+          <div className="detailsDiv">
             {isAdded ? (
               <p className="addCart">Item Added to Bag!</p>
             ) : (

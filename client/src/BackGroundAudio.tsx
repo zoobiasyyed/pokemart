@@ -1,6 +1,13 @@
 import { useRef, useState } from 'react';
 import { FaPlay, FaPause } from 'react-icons/fa';
 
+/**
+ * Renders the BackGroundAudio component, providing background audio playback
+ * with a play/pause button.
+ *
+ * @returns {JSX.Element}
+ */
+
 export function BackGroundAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);

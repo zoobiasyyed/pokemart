@@ -4,6 +4,15 @@ import { useContext } from 'react';
 import { CartContext } from './CartContext';
 import { useUser } from './useUser';
 
+/**  Renders the Header, displaying the cart button
+ * as well as the exit button
+ *
+ * Utilizes CartContext for cart state management,
+ * useUser for user authentication and sign-out functionality, and
+ * React Router's useNavigate for navigation.
+ *
+ * @returns {JSX.Element} */
+
 export function Header() {
   const { user, handleSignOut } = useUser();
   const navigate = useNavigate();
@@ -13,7 +22,7 @@ export function Header() {
       <div className="header">
         <div className="headerBag">
           {user && (
-            <div className="relative flex-grow flex-1 px-4">
+            <div>
               <button
                 className="signOutButton"
                 onClick={() => {

@@ -3,6 +3,12 @@ import { useUser } from './useUser';
 import { Products } from './Products';
 import { Header } from './Header';
 
+/**
+ * Renders the Home component, serving as the main landing page for the application.
+ *
+ * @returns {JSX.Element}
+ */
+
 export function Home() {
   const { user } = useUser();
   const navigate = useNavigate();
