@@ -46,9 +46,9 @@ export function SignInForm() {
     <div className="signInContainer">
       <div className="signInBox">
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-wrap mb-1">
-            <div className="w-1/2">
-              <label className="mb-1 block">
+          <div>
+            <div>
+              <label>
                 <input
                   required
                   name="username"
@@ -57,7 +57,7 @@ export function SignInForm() {
                   className="registerInput"
                 />
               </label>
-              <label className="mb-1 block">
+              <label>
                 <input
                   required
                   name="password"

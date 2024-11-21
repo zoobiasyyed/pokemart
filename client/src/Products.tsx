@@ -11,6 +11,12 @@ export type Product = {
   photoUrl: string;
 };
 
+/**
+ * Renders the Products component, which fetches and displays a list of products from the database.
+ *
+ * @returns {JSX.Element}
+ */
+
 export function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);

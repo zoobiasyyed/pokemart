@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { User } from './UserContext';
 
 /**
- * Form that registers a user.
+ * Renders the RegistrationForm component, allowing users to register with a username and password.
+ *
+ * @returns {JSX.Element}
  */
+
 export function RegistrationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -44,9 +47,9 @@ export function RegistrationForm() {
     <div className="signInContainer">
       <div className="signInBox">
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-wrap mb-1">
-            <div className="w-1/2">
-              <label className="mb-1 block">
+          <div>
+            <div>
+              <label>
                 <input
                   required
                   name="username"
@@ -55,7 +58,7 @@ export function RegistrationForm() {
                   className="registerInput"
                 />
               </label>
-              <label className="mb-1 block">
+              <label>
                 <input
                   required
                   name="password"

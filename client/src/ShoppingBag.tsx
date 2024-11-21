@@ -10,6 +10,14 @@ export type CartItems = Product & {
   quantity: number;
 };
 
+/**  Renders the shopping bag page, displaying a list of items in the cart,
+ * total price, and functionality to update quantities, remove items,
+ * and clear the cart.
+ *
+ * Utilizes CartContext for cart state management and React Router for navigation.
+ *
+ * @returns {JSX.Element} */
+
 export function ShoppingBag() {
   const [error, setError] = useState<unknown>();
   const { cart, updateQuantity, removeItem, clearCart } =
@@ -103,7 +111,6 @@ type CardProps = {
   removeItem: (cartItem: CartItems) => void;
 };
 
-// need to add quantity and delete button
 function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
   const quantity = productItem.quantity;
   const updatedPrice = productItem.price * quantity;
