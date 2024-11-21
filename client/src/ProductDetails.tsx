@@ -4,6 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import { readToken } from './data';
 
+/**
+ * Renders the ProductDetails component, which displays detailed information
+ * about a specific product and allows users to add the product to their cart.
+ *
+ * @returns {JSX.Element} The ProductDetails component.
+ */
+
 export function ProductDetails() {
   const { productId } = useParams();
   const [products, setProducts] = useState<Product | undefined>();
