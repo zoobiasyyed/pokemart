@@ -10,8 +10,27 @@ import { Header } from './Header';
  */
 
 export function Home() {
-  const { user } = useUser();
+  const { user, handleSignIn } = useUser();
   const navigate = useNavigate();
+
+  async function handleGuest() {
+    try {
+      const req = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: 'guest', password: 'guest' }),
+      };
+      const res = await fetch('/api/auth/sign-in', req);
+      if (!res.ok) {
+        throw new Error(`fetch Error ${res.status}`);
+      }
+      const { user, token } = await res.json();
+      handleSignIn(user, token);
+    } catch (err) {
+      console.error(err);
+      alert('error signing in');
+    }
+  }
 
   return (
     <div className="homeContainer">
@@ -29,6 +48,11 @@ export function Home() {
                 className="signUpButton"
                 onClick={() => navigate('sign-in')}>
                 Sign In
+              </button>
+            </div>
+            <div>
+              <button className="guestButton" onClick={handleGuest}>
+                Sign in as Guest
               </button>
             </div>
           </div>

@@ -44,4 +44,7 @@ values ('Antidote', 'Healing Items', 10000, 'Removes Poison effects from a Poké
       ('HP Up', 'Competitive Items', 500000, 'Raises the base HP stat of a single Pokémon' , '/images/HpUp.webp'),
       ('Iron', 'Competitive Items', 500000, 'Raises the base Defense stat of a single Pokémon', '/images/Iron.webp' ),
       ('Protein', 'Competitive Items', 500000, 'Raises the base Attack stat of a single Pokémon' , '/images/Protein.webp' ),
-      ('Zinc', 'Competitive Items', 500000, 'Raises the base Sp. Defense of a single Pokémon' , '/images/Zinc.webp')
+      ('Zinc', 'Competitive Items', 500000, 'Raises the base Sp. Defense of a single Pokémon' , '/images/Zinc.webp');
+
+insert into "users" ("username", "hashedPassword")
+values ('guest', '$argon2id$v=19$m=65536,t=3,p=4$mAtU8yRJKFIWg5TphU1QXw$AZhVu8tkpBI0ZgYO0ADlx3U3A8kX1wjGV5NR7ebdMfE');
