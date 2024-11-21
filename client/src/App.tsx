@@ -24,8 +24,8 @@ export default function App() {
           <Route path="/" element={<Header />}>
             <Route path="products" element={<Products />} />
             <Route path="products/:productId" element={<ProductDetails />} />
-            <Route path="*" element={<NotFound />} />
             <Route path="bag" element={<ShoppingBag />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </CartProvider>
