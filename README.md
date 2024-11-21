@@ -8,7 +8,7 @@ I created this project to combine my full-stack development skills with my passi
 
 ---
 
-## Link to the live deployment: (ec2-3-12-236-69.us-east-2.compute.amazonaws.com)
+## Link to the live deployment: [here](ec2-3-12-236-69.us-east-2.compute.amazonaws.com)
 
 ---
 
