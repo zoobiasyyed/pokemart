@@ -13,11 +13,11 @@ I created this project to combine my full-stack development skills with my passi
 ---
 
 ## Technologies Used: 
-###Frontend: 
+### Frontend: 
 - React, HTML, CSS, TypeScript
-###Backend: 
+### Backend: 
 - Node.js, Express.js, PostgreSQL
-###Other Tools: 
+### Other Tools: 
 - Used JWT for secure user authentication and authorization
 
 ---
