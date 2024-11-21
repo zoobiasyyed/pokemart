@@ -436,6 +436,12 @@ body {
   margin: 1.25rem;
 }
 
+.guestButton {
+  background: none;
+  padding-top: 0;
+  text-decoration: underline;
+}
+
 /* Registration Form */
 
 .signInContainer {
