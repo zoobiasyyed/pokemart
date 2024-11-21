@@ -11,7 +11,8 @@ import { useUser } from './useUser';
  * useUser for user authentication and sign-out functionality, and
  * React Router's useNavigate for navigation.
  *
- * @returns {JSX.Element} */
+ * @returns {JSX.Element}
+ *  */
 
 export function Header() {
   const { user, handleSignOut } = useUser();

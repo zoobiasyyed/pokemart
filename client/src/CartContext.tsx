@@ -1,14 +1,14 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import { Product } from './Products';
-import { CartItems } from './ShoppingBag';
+import { CartItem } from './ShoppingBag';
 import { useUser } from './useUser';
 import { readToken } from './data';
 
 export type CartValue = {
-  cart: CartItems[];
+  cart: CartItem[];
   addToCart: (product: Product) => Promise<void>;
-  updateQuantity: (cartItem: CartItems) => Promise<void>;
-  removeItem: (cartItem: CartItems) => Promise<void>;
+  updateQuantity: (cartItem: CartItem) => Promise<void>;
+  removeItem: (cartItem: CartItem) => Promise<void>;
   clearCart: () => Promise<void>;
 };
 
@@ -20,35 +20,31 @@ export const CartContext = createContext<CartValue>({
   clearCart: () => new Promise(() => {}),
 });
 
-//create a cartprovider that looks like userprovider
-
 type Props = {
   children: ReactNode;
 };
 
 export function CartProvider({ children }: Props) {
   const { user } = useUser();
-  const [cart, setCart] = useState<CartItems[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [error, setError] = useState<unknown>();
 
   useEffect(() => {
     async function userCart() {
       try {
         if (!user) return;
-        if (user) {
-          const response = await fetch('/api/bag/', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${readToken()}`,
-            },
-          });
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          const data = (await response.json()) as CartItems[];
-          setCart(data);
+        const response = await fetch('/api/bag/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${readToken()}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        const data = (await response.json()) as CartItem[];
+        setCart(data);
       } catch (err) {
         setError(err);
       }
@@ -56,89 +52,73 @@ export function CartProvider({ children }: Props) {
     userCart();
   }, [user]);
 
+  //post call
   async function addToCart(product: Product) {
-    try {
-      //post call
-      const response = await fetch('/api/bag', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${readToken()}`,
-        },
-        body: JSON.stringify({ productId: product.productId, quantity: 1 }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = (await response.json()) as CartItems;
-      const newCart = [...cart, data];
-      setCart(newCart);
-    } catch (err) {
-      setError(err);
+    const response = await fetch('/api/bag', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${readToken()}`,
+      },
+      body: JSON.stringify({ productId: product.productId, quantity: 1 }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    const data = (await response.json()) as CartItem;
+    const newCart = [...cart, data];
+    setCart(newCart);
   }
 
   //putCall
-  async function updateQuantity(cartItem: CartItems) {
-    try {
-      const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${readToken()}`,
-        },
-        body: JSON.stringify({ quantity: cartItem.quantity }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = (await response.json()) as CartItems;
-      const newCart = cart.map((c) =>
-        c.cartItemId === cartItem.cartItemId ? data : c
-      );
-      setCart(newCart);
-    } catch (err) {
-      setError(err);
+  async function updateQuantity(cartItem: CartItem) {
+    const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${readToken()}`,
+      },
+      body: JSON.stringify({ quantity: cartItem.quantity }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    const data = (await response.json()) as CartItem;
+    const newCart = cart.map((c) =>
+      c.cartItemId === cartItem.cartItemId ? data : c
+    );
+    setCart(newCart);
   }
 
   //remove Call
-  async function removeItem(cartItem: CartItems) {
-    try {
-      const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${readToken()}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const newCart = cart.filter((c) => c.cartItemId !== cartItem.cartItemId);
-      setCart(newCart);
-    } catch (err) {
-      setError(err);
+  async function removeItem(cartItem: CartItem) {
+    const response = await fetch(`/api/bag/${cartItem.cartItemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${readToken()}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    const newCart = cart.filter((c) => c.cartItemId !== cartItem.cartItemId);
+    setCart(newCart);
   }
 
   //remove Cart
   async function clearCart() {
-    try {
-      const response = await fetch(`/api/bag-all`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${readToken()}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      setCart([]);
-    } catch (err) {
-      setError(err);
+    const response = await fetch(`/api/bag-all`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${readToken()}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    setCart([]);
   }
 
   if (error) {

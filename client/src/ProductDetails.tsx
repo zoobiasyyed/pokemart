@@ -60,13 +60,14 @@ export function ProductDetails() {
     return <div>Product not found</div>;
   }
 
-  const handleNav = async () => {
+  const handleAdd = async () => {
     try {
       await addToCart(products);
       alert(`Added ${name} to the bag`);
       navigate('/');
     } catch (err) {
-      if (!products) throw new Error('Should never happen');
+      console.error(err);
+      alert('An error occurred while adding to the cart');
     }
   };
 
@@ -91,7 +92,7 @@ export function ProductDetails() {
             {isAdded ? (
               <p className="addCart">Item Added to Bag!</p>
             ) : (
-              <button onClick={handleNav} className="detailsButton">
+              <button onClick={handleAdd} className="detailsButton">
                 Add to Bag
               </button>
             )}

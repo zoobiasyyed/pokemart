@@ -29,6 +29,11 @@ if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
 const app = express();
 app.use(express.json());
 
+/**
+ * Handles user sign-up by adding a new user to the database.
+ *
+ * @returns {Object}
+ */
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -49,6 +54,11 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
   }
 });
 
+/**
+ * Handles user sign-in by validating credentials and returning a token.
+ *
+ * @returns {Object}
+ */
 app.post('/api/auth/sign-in', async (req, res, next) => {
   try {
     const { username, password } = req.body as Partial<Auth>;
@@ -83,7 +93,11 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
-// getting all the products
+/**
+ * Retrieves all products from the database.
+ *
+ * @returns {Array<Object>}
+ */
 app.get('/api/products', async (req, res, next) => {
   try {
     const sql = `
@@ -96,7 +110,11 @@ app.get('/api/products', async (req, res, next) => {
   }
 });
 
-// getting the product with specific id (will be used in product details page)
+/**
+ * Retrieves a specific product by its ID.
+ *
+ * @returns {Object}
+ */
 app.get('/api/products/:productId', async (req, res, next) => {
   try {
     const { productId } = req.params;
@@ -117,6 +135,11 @@ app.get('/api/products/:productId', async (req, res, next) => {
   }
 });
 
+/**
+ *  Retrieves the user's cart items with product details.
+ *
+ * @returns {Array<Object>}
+ */
 app.get('/api/bag/', authMiddleware, async (req, res, next) => {
   try {
     const sql = `
@@ -133,6 +156,11 @@ app.get('/api/bag/', authMiddleware, async (req, res, next) => {
   }
 });
 
+/**
+ *  Adds a product to the user's cart.
+ *
+ * @returns {Object}
+ */
 app.post('/api/bag', authMiddleware, async (req, res, next) => {
   try {
     const { productId, quantity } = req.body;
@@ -156,6 +184,11 @@ app.post('/api/bag', authMiddleware, async (req, res, next) => {
   }
 });
 
+/**
+ * Updates the quantity of a specific item in the user's cart.
+ *
+ * @returns {Object}
+ */
 app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
   try {
     const { cartItemId } = req.params;
@@ -184,6 +217,11 @@ app.put('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
   }
 });
 
+/**
+ * Removes a specific item from the user's cart.
+ *
+ * @returns {void}
+ */
 app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
   try {
     const { cartItemId } = req.params;
@@ -204,6 +242,11 @@ app.delete('/api/bag/:cartItemId', authMiddleware, async (req, res, next) => {
   }
 });
 
+/**
+ * Removes all items from the user's cart.
+ *
+ * @returns {void}
+ */
 app.delete('/api/bag-all', authMiddleware, async (req, res, next) => {
   try {
     const sql = `

@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CartContext } from './CartContext';
 import { Product } from './Products';
 import { Link, useNavigate } from 'react-router-dom';
 
-export type CartItems = Product & {
+export type CartItem = Product & {
   cartItemId: number;
   userId: number;
   productId: number;
@@ -19,28 +19,29 @@ export type CartItems = Product & {
  * @returns {JSX.Element} */
 
 export function ShoppingBag() {
-  const [error, setError] = useState<unknown>();
   const { cart, updateQuantity, removeItem, clearCart } =
     useContext(CartContext);
   const navigate = useNavigate();
 
-  async function updatedQuantity(cartItem: CartItems) {
+  async function handleUpdate(cartItem: CartItem) {
     try {
       await updateQuantity(cartItem);
     } catch (err) {
-      setError(err);
+      console.error(err);
+      alert('Error updating Item');
     }
   }
 
-  async function removedItem(cartItem: CartItems) {
+  async function handleRemove(cartItem: CartItem) {
     try {
       await removeItem(cartItem);
     } catch (err) {
-      setError(err);
+      console.error(err);
+      alert('Error removing Item');
     }
   }
 
-  function totalPrice(cart: CartItems[]) {
+  function totalPrice(cart: CartItem[]) {
     let totalItemPrice = 0;
     for (let i = 0; i < cart.length; i++) {
       const itemPrice = cart[i].price * cart[i].quantity;
@@ -60,15 +61,6 @@ export function ShoppingBag() {
     }
   };
 
-  if (error) {
-    return (
-      <div>
-        Error Loading :{' '}
-        {error instanceof Error ? error.message : 'Unknown Error'}
-      </div>
-    );
-  }
-
   return (
     <div className="containerBag">
       <Link className="backBag" to="/">
@@ -80,8 +72,8 @@ export function ShoppingBag() {
           <ItemCard
             key={prod.cartItemId}
             productItem={prod}
-            updateQuantity={updatedQuantity}
-            removeItem={removedItem}
+            updateQuantity={handleUpdate}
+            removeItem={handleRemove}
           />
         ))}
       </div>
@@ -106,9 +98,9 @@ export function ShoppingBag() {
 }
 
 type CardProps = {
-  productItem: CartItems;
-  updateQuantity: (cartItem: CartItems) => void;
-  removeItem: (cartItem: CartItems) => void;
+  productItem: CartItem;
+  updateQuantity: (cartItem: CartItem) => void;
+  removeItem: (cartItem: CartItem) => void;
 };
 
 function ItemCard({ productItem, updateQuantity, removeItem }: CardProps) {
