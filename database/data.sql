@@ -26,7 +26,7 @@ values ('Antidote', 'Healing Items', 10000, 'Removes Poison effects from a Poké
       ('Nest Ball', 'Pokéballs', 80000, 'Works better on weak Pokémon', '/images/NestBall.webp' ),
       ('Net Ball', 'Pokéballs', 90000, 'Works better on Water & Bug-type Pokémon', '/images/NetBall.webp' ),
       ('Pokéball', 'Pokéballs', 20000, 'Catch Rate: 1x', '/images/Poke_Ball.webp' ),
-      ('Premier Ball', 'Pokéballs', 20000, 'A rare Pokéball that has been specially made to commemorate an event of some sort', '/images/PremierBall.webp' ),
+      ('Premier Ball', 'Pokéballs', 20000, 'A rare Pokéball that has been made to commemorate an event', '/images/PremierBall.webp' ),
       ('Repeat Ball', 'Pokéballs', 100000, 'Works better on Pokémon caught before', '/images/RepeatBall.webp' ),
       ('Ultra Ball', 'Pokéballs', 120000, 'Higher catch rate: 2x', '/images/UltraBall.webp' ),
       ('Common Candy', 'Evolution Items', 100000, 'Levels down a Pokémon by 1 level', '/images/CommonCandy.webp'),
