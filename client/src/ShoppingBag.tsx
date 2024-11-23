@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { CartContext } from './CartContext';
 import { Product } from './Products';
 import { Link, useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 
 export type CartItem = Product & {
   cartItemId: number;
@@ -50,14 +51,42 @@ export function ShoppingBag() {
     return totalItemPrice;
   }
 
-  const handleClearCart = async () => {
-    try {
-      await clearCart();
-      alert('Thank You for Shopping with us, hope to see you again!');
-      navigate('/');
-    } catch (err) {
-      console.error(err);
-      alert('Error clearing cart');
+  // const handleClearCart = async () => {
+  //   try {
+  //     await clearCart();
+  //     alert('Thank You for Shopping with us, hope to see you again!');
+  //     navigate('/');
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert('Error clearing cart');
+  //   }
+  // };
+
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      'pk_test_51QNjOaHwEX5uZ8Wu3AKn2Jixsfsfsxu00l9tC117K6loxW5j6oNzCF6t7feSBsuNvYEgCQxerjprUPXse6mevSak00rOylThWM'
+    );
+
+    const body = {
+      products: cart,
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+
+    const session = await response.json();
+    const result = stripe?.redirectToCheckout({
+      sessionId: session.id,
+    });
+    if (!result) {
+      console.error('error');
     }
   };
 
@@ -86,7 +115,7 @@ export function ShoppingBag() {
           {cart.length === 0 ? (
             <h3 className="emptyCart">Your Bag is Empty!</h3>
           ) : (
-            <button onClick={handleClearCart} className="checkoutButton">
+            <button onClick={makePayment} className="checkoutButton">
               Check Out
             </button>
           )}

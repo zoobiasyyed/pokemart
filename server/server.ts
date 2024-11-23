@@ -4,6 +4,7 @@ import express from 'express';
 import pg from 'pg';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
+import Stripe from 'stripe';
 import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
 
 type User = {
@@ -28,6 +29,33 @@ if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
 
 const app = express();
 app.use(express.json());
+
+const stripe = new Stripe(process.env.SECRET_KEY as string);
+
+app.post('/api/create-checkout-session', async (req, res, next) => {
+  const { products } = req.body;
+  const lineItems = products.map((product) => ({
+    price_data: {
+      currency: 'usd',
+      product_data: {
+        name: product.name,
+        images: [product.image],
+      },
+      unit_amount: [product.price],
+    },
+    quantity: product.quantity,
+  }));
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: lineItems,
+    mode: 'payment',
+    success_url: '',
+    cancel_url: '',
+  });
+
+  res.json({ id: session.id });
+});
 
 /**
  * Handles user sign-up by adding a new user to the database.
