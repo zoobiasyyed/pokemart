@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 export function PaymentFailed() {
   return (
     <div>
+      <h1>Payment Failed</h1>
       <Link className="backBag" to="/">
         &lt; Back
       </Link>
-      <h1>Payment Failed</h1>
     </div>
   );
 }
