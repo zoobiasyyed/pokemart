@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CartContext } from './CartContext';
 import { Product } from './Products';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 
 export type CartItem = Product & {
@@ -22,7 +22,7 @@ export type CartItem = Product & {
 export function ShoppingBag() {
   const { cart, updateQuantity, removeItem, clearCart } =
     useContext(CartContext);
-  const navigate = useNavigate();
+  console.log(cart);
 
   async function handleUpdate(cartItem: CartItem) {
     try {
@@ -51,42 +51,48 @@ export function ShoppingBag() {
     return totalItemPrice;
   }
 
-  // const handleClearCart = async () => {
-  //   try {
-  //     await clearCart();
-  //     alert('Thank You for Shopping with us, hope to see you again!');
-  //     navigate('/');
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert('Error clearing cart');
-  //   }
-  // };
-
   const makePayment = async () => {
-    const stripe = await loadStripe(
-      'pk_test_51QNjOaHwEX5uZ8Wu3AKn2Jixsfsfsxu00l9tC117K6loxW5j6oNzCF6t7feSBsuNvYEgCQxerjprUPXse6mevSak00rOylThWM'
-    );
+    if (cart.length === 0) {
+      alert('Your cart is empty. Please add items to proceed.');
+      return;
+    }
+    try {
+      console.log('Cart being sent:', cart);
+      const stripe = await loadStripe(
+        'pk_test_51QNjOaHwEX5uZ8Wu3AKn2Jixsfsfsxu00l9tC117K6loxW5j6oNzCF6t7feSBsuNvYEgCQxerjprUPXse6mevSak00rOylThWM'
+      );
 
-    const body = {
-      products: cart,
-    };
+      const body = {
+        cart,
+      };
 
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+      const headers = {
+        'Content-Type': 'application/json',
+      };
 
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(body),
-    });
+      const response = await fetch('/api/bag/create-checkout-session', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body),
+      });
 
-    const session = await response.json();
-    const result = stripe?.redirectToCheckout({
-      sessionId: session.id,
-    });
-    if (!result) {
-      console.error('error');
+      if (!response.ok) {
+        console.error('Failed to create checkout session');
+        return;
+      }
+
+      const session = await response.json();
+      const result = stripe?.redirectToCheckout({
+        sessionId: session.id,
+      });
+      if (!result) {
+        alert('There was an issue with the payment. Please try again.');
+      } else {
+        await clearCart();
+        console.log('Cart cleared after initiating payment.');
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
     }
   };
 
