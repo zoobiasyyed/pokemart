@@ -11,6 +11,8 @@ import { RegistrationForm } from './RegistrationForm';
 import { SignInForm } from './SignInForm';
 import { UserProvider } from './UserContext';
 import { BackGroundAudio } from './BackGroundAudio';
+import { PaymentFailed } from './PaymentFailed';
+import { PaymentSucceed } from './PaymentSucceed';
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
             <Route path="bag" element={<ShoppingBag />} />
             <Route path="*" element={<NotFound />} />
           </Route>
+          <Route path="payment-succeed" element={<PaymentSucceed />} />
+          <Route path="payment-failed" element={<PaymentFailed />} />
         </Routes>
       </CartProvider>
     </UserProvider>

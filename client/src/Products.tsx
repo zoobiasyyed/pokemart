@@ -25,7 +25,7 @@ export function Products() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('api/products', {
+        const response = await fetch('/api/products', {
           headers: {
             Authorization: `Bearer ${readToken()}`,
           },
