@@ -61,12 +61,16 @@ export function ShoppingBag() {
         'pk_test_51QNjOaHwEX5uZ8Wu3AKn2Jixsfsfsxu00l9tC117K6loxW5j6oNzCF6t7feSBsuNvYEgCQxerjprUPXse6mevSak00rOylThWM'
       );
 
+      const body = { cart };
+
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
       const response = await fetch('/api/bag/create-checkout-session', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cart),
+        headers: headers,
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
