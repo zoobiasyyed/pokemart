@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { FaXmark } from 'react-icons/fa6';
 
 /**
- * Renders the NotFound component, displaying a "Page Not Found" message
+ * Renders the payment failed component, displaying a "Payment Failed" message
  * with a link to navigate back to the home page.
  *
- * @returns {JSX.Element} The NotFound component.
+ * @returns {JSX.Element}
  */
 
 export function PaymentFailed() {

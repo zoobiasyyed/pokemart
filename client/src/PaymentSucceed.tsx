@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 
 /**
- * Renders the NotFound component, displaying a "Page Not Found" message
+ * Renders the payment succeeded component, displaying a "Payment Was Successful" message
  * with a link to navigate back to the home page.
  *
- * @returns {JSX.Element} The NotFound component.
+ * @returns {JSX.Element}
  */
 
 export function PaymentSucceed() {
