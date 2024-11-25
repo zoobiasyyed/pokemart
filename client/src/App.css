@@ -521,6 +521,55 @@ body {
   border-color: #fff;
 }
 
+/* Payment Succeeded */
+
+.paymentSucceeded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c4782;
+  height: 100vh;
+}
+
+.paymentBox {
+  flex-direction: column;
+  width: 300px;
+  height: 200px;
+  background-color: #c7deff;
+}
+
+.successTitle {
+  font-family: 'Press Start 2P', sans-serif;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.check {
+  font-size: 3rem;
+  color: #769678;
+}
+
+.goBack {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 0.7rem;
+  color: rgb(1, 5, 67);
+}
+
+/* Payment Failed */
+
+.paymentFailed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c4782;
+  height: 100vh;
+}
+
+.xMark {
+  font-size: 3rem;
+  color: red;
+}
+
 /* used in multiple pages */
 
 .loading {

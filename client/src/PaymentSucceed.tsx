@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FaCheck } from 'react-icons/fa';
 
 /**
  * Renders the NotFound component, displaying a "Page Not Found" message
@@ -9,11 +10,16 @@ import { Link } from 'react-router-dom';
 
 export function PaymentSucceed() {
   return (
-    <div>
-      <h1>Payment Succeed</h1>
-      <Link className="backBag" to="/">
-        &lt; Back
-      </Link>
+    <div className="paymentSucceeded">
+      <div className="paymentBox">
+        <h1 className="successTitle">Payment Was Successful!</h1>
+        <div>
+          <FaCheck className="check" />
+        </div>
+        <Link className="goBack" to="/">
+          &lt; Back To Products
+        </Link>
+      </div>
     </div>
   );
 }

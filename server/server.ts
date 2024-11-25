@@ -61,7 +61,6 @@ app.post('/api/bag/create-checkout-session', async (req, res, next) => {
           currency: 'usd',
           product_data: {
             name: product.name,
-            images: [`http://localhost:5173${product.photoUrl}`],
           },
           unit_amount: product.price,
         },
