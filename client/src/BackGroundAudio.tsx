@@ -9,6 +9,7 @@ import { FaPlay, FaPause } from 'react-icons/fa';
  */
 
 export function BackGroundAudio() {
+  //useRef bc it doesnt cause rerenders when updated
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
