@@ -12,17 +12,17 @@ export type CartItem = Product & {
 };
 
 /**  Renders the shopping bag page, displaying a list of items in the cart,
- * total price, and functionality to update quantities, remove items,
+ * total price, and functionality to update quantities, pay for items,
  * and clear the cart.
  *
- * Utilizes CartContext for cart state management and React Router for navigation.
+ * Utilizes CartContext for cart state management and React Router for navigation,
+ * as well as Stripe for payments
  *
  * @returns {JSX.Element} */
 
 export function ShoppingBag() {
   const { cart, updateQuantity, removeItem, clearCart } =
     useContext(CartContext);
-  console.log(cart);
 
   async function handleUpdate(cartItem: CartItem) {
     try {
@@ -57,14 +57,11 @@ export function ShoppingBag() {
       return;
     }
     try {
-      console.log('Cart being sent:', cart);
       const stripe = await loadStripe(
         'pk_test_51QNjOaHwEX5uZ8Wu3AKn2Jixsfsfsxu00l9tC117K6loxW5j6oNzCF6t7feSBsuNvYEgCQxerjprUPXse6mevSak00rOylThWM'
       );
 
-      const body = {
-        cart,
-      };
+      const body = { cart };
 
       const headers = {
         'Content-Type': 'application/json',
@@ -86,10 +83,9 @@ export function ShoppingBag() {
         sessionId: session.id,
       });
       if (!result) {
-        alert('There was an issue with the payment. Please try again.');
+        alert('There was an issue with the payment! Please try again.');
       } else {
         await clearCart();
-        console.log('Cart cleared after initiating payment.');
       }
     } catch (err) {
       console.error('Payment error:', err);

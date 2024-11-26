@@ -41,13 +41,18 @@ const db = new pg.Pool({
 const hashKey = process.env.TOKEN_SECRET;
 if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
 
-const app = express();
-app.use(express.json());
-
 const stripe = new Stripe(
   'sk_test_51QNjOaHwEX5uZ8Wue1quBDd0Jce7atRkOyHTlyJk6Ft4WyjtJ98mwCanKMyzvExhsvgzr5yFDB2ovFpeIgi7jqYC00fzjPoln1'
 );
 
+const app = express();
+app.use(express.json());
+
+/**
+ * Creates a Stripe Checkout session for the user's cart.
+ *
+ * @returns {Object}
+ */
 app.post('/api/bag/create-checkout-session', async (req, res, next) => {
   try {
     const { cart } = req.body;

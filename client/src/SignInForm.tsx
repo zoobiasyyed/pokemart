@@ -32,8 +32,6 @@ export function SignInForm() {
       }
       const { user, token } = (await res.json()) as AuthData;
       handleSignIn(user, token);
-      console.log('Signed In', user);
-      console.log('Received token:', token);
       navigate('/');
     } catch (err) {
       alert(`Error signing in: ${err}`);
