@@ -83,7 +83,7 @@ export function ShoppingBag() {
         sessionId: session.id,
       });
       if (!result) {
-        alert('There was an issue with the payment. Please try again.');
+        alert('There was an issue with the payment! Please try again.');
       } else {
         await clearCart();
       }
