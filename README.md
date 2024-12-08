@@ -26,11 +26,11 @@ I created this project to combine my full-stack development skills with my passi
 - Secure User Authentication
 - Shopping Cart where users can add or remove items, as well as checkout
 - Background Audio to improve user experience
+- Stripe to accept various forms of payment
 
 ---
 
 ## Stretch Features I would like to implement: 
-- use Stripe to accept various forms of payments
 - a Search Bar
 - Sorting the products by category
 
